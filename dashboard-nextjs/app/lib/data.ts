@@ -169,6 +169,11 @@ export async function fetchInvoiceById(id: string) {
       amount: invoice.amount / 100,
     }));
 
+    //check to see if invoice is empty array
+    console.log(invoice);
+
+    // gmmk-tkl-rgb (65$)
+
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
