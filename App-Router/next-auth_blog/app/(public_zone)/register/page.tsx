@@ -1,5 +1,5 @@
 import AcmeLogo from "@/app/_components/acme-logo";
-import RegisterForm from "@/app/_components/forms/register-form";
+import RegisterForm from "@/app/_components/_forms/register-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RegisterPage(){
                         <AcmeLogo />
                     </div>
                 </div>
-                <RegisterForm />
+                <RegisterForm username={""} email={""} password={""} cmp_password={""} />
             </div>
         </main>
     )

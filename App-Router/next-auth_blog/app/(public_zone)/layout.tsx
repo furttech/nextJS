@@ -1,7 +1,6 @@
 import { inter } from '../_components/fonts';
-import {Links} from '../_components/links'
 import { Metadata } from "next";
-import '@/app/_components/global.css';
+import '@/app/(public_zone)/global.css';
 
 export const metadata: Metadata = {
   title: {
