@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '../../auth';
 import { AuthError } from 'next-auth';
+import { setLocalUserSession } from './actions';
 
 const FormSubmit = z.object({
   email: z.string({
@@ -41,8 +42,11 @@ export async function authentication(prevState: State, formData: FormData) {
     }
   }
 
+
   try {
-    await signIn('credentials', formData);
+
+    const validSignIn:boolean = await signIn('credentials', userData.data);
+ 
   } catch (error) {
     if(error instanceof AuthError){
       switch (error.type){

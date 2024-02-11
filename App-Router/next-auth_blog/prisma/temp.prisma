@@ -1,0 +1,181 @@
+//// ### Profile Models for Blog Users ### ////
+
+model Profile {
+    id                String  @id @default(cuid()) // Primary Key : Tied to relational models with Foreign Keys
+    profileVisibility String?
+
+    // Extended Catagories with Model Types - Prisma-level only
+    medicalStatus       MedicalStatus?
+    personalPreferences PersonalPreferences?
+    PersonalDetails     PersonalDetails?
+    RandomDetails       RandomDetails?
+    favSportsTeams      FavoriteSportsTeams[]
+    fears               Fears[]
+    pets                Pets[]
+    hobbies             Hobbies[]
+    contacts            Contacts[]
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in User Model
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @map("user_Id")
+}
+
+model RandomDetails {
+    id                     String   @id @default(cuid())
+    cprCertified           Boolean?
+    amountOfFollowers      Int?
+    aquaticallyInclined    Boolean?
+    canCartWheel           Boolean?
+    specialSkils           Boolean?
+    superPower             String?
+    legalStatus            String?
+    techSavey              Boolean?
+    averageDailyScreenTime Int?
+    bussPass               Boolean?
+    politicalParty         String?
+    ownsHome               Boolean?
+    ownGun                 Boolean?
+    concealedCarry         Boolean?
+    ownsSecondaryProperty  Boolean?
+    grossIncomePostTaxes   Boolean?
+    astrologicalSign       String?
+    shoeSize               Int?     @default(0)
+    nationality            String?
+    country                String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @unique @map("profile_Id") // relational attribute
+}
+
+model PersonalDetails {
+    id                  String    @id @default(cuid())
+    relationalPrefrence String?
+    driversLicense      Boolean?
+    address             String?
+    bio                 String?
+    birthday            DateTime?
+    education           String?
+    occupation          String?
+    inRelationship      Boolean?
+    inMilitary          Boolean?
+    hasChildren         Boolean?
+    creditScore         Int?      @default(0)
+    felon               Boolean?
+    isAdult             Boolean?
+    isTwentyOne         Boolean?
+    healthInsurance     Boolean?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @unique @map("profile_Id")
+}
+
+model PersonalPreferences {
+    id              String   @id @default(cuid())
+    pronouns        String?
+    favColor        String?
+    favFood         String?
+    primaryLanguage String?
+    religion        String?
+    a420friendly    Boolean?
+    multiLingual    Boolean?
+    isFlatEarther   Boolean?
+    superstitious   Boolean?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @unique @map("profile_Id")
+}
+
+model MedicalStatus {
+    id                 String   @id @default(cuid())
+    gender             String?
+    conditionName      String?
+    timeAfflicted      String?
+    primaryDoctor      String?
+    isAmbidexterous    Boolean?
+    isCrosseyed        Boolean?
+    onSpectrum         Boolean?
+    isSmoker           Boolean?
+    migraines          Boolean?
+    allergies          String?
+    eyeColor           String?
+    hairColor          String?
+    hairLength         String?
+    skinType           String?
+    bodyWeight         Decimal? @default(0)
+    bodyHeight         Decimal? @default(0)
+    handedness         String?
+    bloodType          String?
+    isAntiSocial       Boolean?
+    addiction          String?
+    vaccinated         Boolean?
+    boosterVacinations Int?     @default(0)
+    doesSnore          Boolean?
+    ginger             Boolean?
+    colorBlind         Boolean?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @unique @map("profile_Id")
+}
+
+model FavoriteSportsTeams {
+    id             String  @id @default(cuid())
+    teamName       String?
+    sportType      String?
+    yearsFollowing Int?    @default(0)
+    favPlayer      String?
+    teamLocation   String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @map("profile_Id")
+}
+
+model Fears {
+    id        String  @id @default(cuid())
+    fearName  String?
+    fearType  String?
+    fearLevel String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @map("profile_Id")
+}
+
+model Pets {
+    id        String  @id @default(cuid())
+    petName   String?
+    petType   String?
+    timeAlive Int?    @default(0)
+    breed     String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @map("profile_Id")
+}
+
+model Hobbies {
+    id        String  @id @default(cuid())
+    hobbyName String?
+    hobbyType String?
+    timeSpent Int?    @default(0)
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @map("profile_Id")
+}
+
+model Contacts {
+    id          String  @id @default(cuid())
+    name        String
+    phoneNumber String?
+    email       String?
+    codeWord    String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in Profile Model
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String  @map("profile_Id")
+}

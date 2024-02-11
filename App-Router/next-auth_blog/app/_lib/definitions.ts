@@ -30,3 +30,13 @@ export type SignInUserForm = {
     email: string | null,
     password: string | null,
 }
+
+export type CreatePostForm = {
+    title: string,
+    postDate?: Date,
+    content?: string,
+    image?:     string,
+    tags?:  string,
+    published?: boolean,
+
+}

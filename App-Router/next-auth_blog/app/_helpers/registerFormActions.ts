@@ -41,7 +41,7 @@ export type State = {
     message?: string | null;
 }
 
-async function emailExists(email: string){
+async function emailExists(email: string):Promise<boolean>{
 
   const user: ( User | null ) = await prisma.user.findUnique({
     where: {
@@ -49,10 +49,11 @@ async function emailExists(email: string){
     }
   });
   
-  return user;
+  if(user) return true;
+  return false;
 }
 
-async function userExists(username: string){
+async function userExists(username: string):Promise<boolean>{
   
   const user: ( User | null ) = await prisma.user.findUnique({
     where: {
@@ -60,7 +61,8 @@ async function userExists(username: string){
     }
   });
 
-  return user;
+  if(user) return true;
+  return false;
 }
 
 async function addUser(userData: FormUser){
@@ -92,9 +94,8 @@ export async function registerUser(prevState: State , formData: FormData){
 
   try {
 
-        // Todo add promise all to await
-    const uEx = await userExists(validateFields.data.username);
-    const eEx = await emailExists(validateFields.data.email);
+    const uEx: boolean = await userExists(validateFields.data.username);
+    const eEx: boolean = await emailExists(validateFields.data.email);
 
     if((eEx || uEx)){
       /// TODO Handle the user or email exist error
@@ -116,7 +117,7 @@ export async function registerUser(prevState: State , formData: FormData){
     password: bcPassword,
   };
 
-  //TODO Make the DB call to create the new user on success of validation
+  // creates a new User with form data 
   addUser(uData);
 
   revalidatePath('/login');

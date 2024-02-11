@@ -18,3 +18,21 @@ export const formatCurrency = (amount: number) => {
     const formatter = new Intl.DateTimeFormat(locale, options);
     return formatter.format(date);
   };
+
+  export const addMillisecondsToDate = (milliSeconds: number, dateString?: string, dateMilliseconds?: number) : number => {
+
+    let curDateInMilliSeconds:number|null = null;
+
+    if(!dateString && dateMilliseconds){
+      curDateInMilliSeconds = dateMilliseconds;
+
+    }else if(dateString && !dateMilliseconds){
+      curDateInMilliSeconds = Date.parse(dateString);
+
+    }else{
+      curDateInMilliSeconds = new Date().getMilliseconds();
+    }
+
+    return curDateInMilliSeconds += milliSeconds;
+
+  }

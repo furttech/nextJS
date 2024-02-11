@@ -3,34 +3,38 @@ import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import {z} from "zod";
 import bcrypt from 'bcrypt';
-import { getUser } from "./app/_helpers/actions";
+import { fetchUserByEmail, setLocalUserSession } from "./app/_helpers/actions";
 import GitHub from "next-auth/providers/github";
 
-export const { handlers: {GET,POST}, auth, signIn, signOut} = NextAuth({
+export const {  auth, signIn, signOut} = NextAuth({
     ...authConfig,
     providers: [
-    Credentials({
-        async authorize(credentials){
-            const parseCredentials = z
-            .object({email: z.string().email(), password: z.string().min(10) })
-            .parse(credentials);
+        Credentials({
+            async authorize(credentials){
 
-            if(parseCredentials){
-                
-                const password = parseCredentials.password;
-                const user = await getUser(parseCredentials.email);
-                if(!user) return null;
+                const parseCredentials = z
+                .object({email: z.string().email(), password: z.string().min(10) })
+                .parse(credentials);
 
-                const passwordMatch = await bcrypt.compare(password, user.password!);
-                if(passwordMatch) return user;
-                
-            }
+                if(parseCredentials){
+                    
+                    const password = parseCredentials.password;
+                    const user = await fetchUserByEmail(parseCredentials.email);
+                    if(!user) return null;
 
-            console.log(`Invalid Creds! `);
-            return null;
-        },
-    }),
-    GitHub
+                    const passwordMatch = await bcrypt.compare(password, user.password!);
+                    if(passwordMatch){
+                        setLocalUserSession(user.id);
+                        return user;
+                    } 
+                    
+                }
+
+                console.log(`Invalid Creds!`);
+                return null;
+            },
+        }),
+        GitHub
     ],
 
     secret: process.env.AUTH_SECRET,
