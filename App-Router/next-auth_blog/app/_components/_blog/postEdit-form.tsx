@@ -1,22 +1,22 @@
 'use client'
 
-import { createPost } from "@/app/_helpers/postFormActions";
+import { updatePost } from "@/app/_helpers/postFormActions";
 import { useFormState } from "react-dom";
 import { lusitana } from "../fonts";
 import { BookOpenIcon, ComputerDesktopIcon, HashtagIcon, PhotoIcon, PencilIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { CreatePostForm } from "@/app/_lib/definitions";
 import { Button } from "../_forms/button";
 
-export default function PostCreateForm() {
+export default function PostEditForm({postDetails}:{postDetails?:CreatePostForm}) {
 
     const initialState = { message: null, errors: {} };
-    const [state, dispatch] = useFormState(createPost, initialState);
+    const [state, dispatch] = useFormState(updatePost, initialState);
 
     return (
         <form id="postForm" action={dispatch}>
             <div>
                 <h1 className={`${lusitana.className} text-black  mb-3 text-2xl`}>
-                    Tell Your Story:
+                    Update Post:
                 </h1>
 
                 {/*!-- Post Title Input Field -- !*/}
@@ -31,7 +31,7 @@ export default function PostCreateForm() {
                             type="text"
                             name="title"
                             placeholder="Post Title"
-                            defaultValue={""}
+                            defaultValue={postDetails?.title}
                             required
                             aria-describedby="title-error"
                         />
@@ -62,7 +62,7 @@ export default function PostCreateForm() {
                             id="content"
                             name="content"
                             placeholder="Post content"
-                            defaultValue={""}
+                            defaultValue={postDetails?.content}
                             required
                             aria-describedby="content-error"
                         />
@@ -92,7 +92,7 @@ export default function PostCreateForm() {
                             type="text"
                             name="tags"
                             placeholder="Post tags"
-                            defaultValue={""}
+                            defaultValue={postDetails?.tags}
                             required
                             aria-describedby="tags-error"
                         />
@@ -157,6 +157,7 @@ export default function PostCreateForm() {
                                     name="published"
                                     type="radio"
                                     value="true"
+                                    defaultChecked={postDetails?.published === true ? true  : false }
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                                     aria-describedby='published-error'
                                 />
@@ -173,6 +174,7 @@ export default function PostCreateForm() {
                                     name="published"
                                     type="radio"
                                     value="false"
+                                    defaultChecked={postDetails?.published === false ? false : true }
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                                     aria-describedby='published-error'
                                 />
@@ -199,7 +201,7 @@ export default function PostCreateForm() {
 
                 <div className="flex justify-end gap-1.5 py-3">
                     {/*!-- Submit Button --!*/}
-                    <Button type='submit' aria-describedby='sub-error' >Create Post</Button>
+                    <Button type='submit' aria-describedby='sub-error' >Update Post</Button>
                     <div id='sub-error' aria-live='polite' aria-atomic='true'>
                         {
                             state?.message

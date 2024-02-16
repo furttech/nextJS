@@ -1,9 +1,9 @@
 import PostTable from "@/app/_components/_blog/postTable";
 import { lusitana } from "@/app/_components/fonts";
-import { fetchPostsPageCount } from "@/app/_helpers/postActions";
+import { fetchPostsPageCount } from "@/app/_helpers/postFormActions";
 import Search from "@/app/(public_zone)/(private_zone)/search";
 
-export default function viewPostsPage({
+export default async function viewPostsPage({
     searchParams
 }: {
     searchParams: {
@@ -14,15 +14,15 @@ export default function viewPostsPage({
 
     const query: (string | undefined) = searchParams.query || "";
     const currentPage = Number(searchParams.page) || 1;
-    const pagesCount = fetchPostsPageCount(query);
+    const pagesCount = await fetchPostsPageCount(query);
 
     return (
         <>
-            <div className="w-full">
+            <div className="w-full h-full">
                 <h1 className={`${lusitana.className} text-2xl`}>
-                    View Blog Posts
+                    All User Posts
                 </h1>
-                <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+                <div className="mt-4 flex items-center justify-between text-black gap-2 md:mt-8">
                     <Search placeholder="Search invoices..." />
                 </div>
                 <PostTable query={query} currentPage={currentPage} />

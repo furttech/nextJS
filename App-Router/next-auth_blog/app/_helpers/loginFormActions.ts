@@ -74,7 +74,7 @@ export async function authentication(prevState: State, formData: FormData) {
     throw error;
   }
 
-  revalidatePath('/feed');
-  redirect('/feed');
+  revalidatePath('/blog');
+  redirect('/blog');
 
 }

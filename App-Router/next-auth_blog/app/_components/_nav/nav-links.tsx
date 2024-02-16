@@ -3,9 +3,9 @@
 import {
   HomeIcon,
   DocumentDuplicateIcon,
-  DocumentMagnifyingGlassIcon,
   DocumentPlusIcon,
-  UserIcon
+  UserIcon,
+  WindowIcon
 } from '@heroicons/react/24/outline';
 
 // Link module for client side page navigation
@@ -20,13 +20,18 @@ import clsx from 'clsx';
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-   {
+  {
+    name: 'The Wall',
+    href: '/blog/wall',
+    icon: WindowIcon,
+  },
+  {
     name: 'Private Feed',
-    href: '/blog',
+    href: '/blog/feed',
     icon: DocumentDuplicateIcon,
   },
   {
-    name:'Create Post',
+    name: 'Create Post',
     href: '/blog/create',
     icon: DocumentPlusIcon,
   },
@@ -34,15 +39,16 @@ const links = [
     name: 'User Settings',
     href: '/blog/user',
     icon: UserIcon,
-  }
+  },
+
 
 ];
 
 export default function NavLinks() {
-  
+
   // declared variable for pathname usage
   const pathname = usePathname();
-  
+
   return (
     <>
       {links.map((link) => {

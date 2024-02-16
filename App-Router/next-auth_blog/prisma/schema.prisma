@@ -17,7 +17,7 @@ datasource db {
 model Post {
     id        String   @id @default(cuid())
     title     String
-    postDate  DateTime
+    postDate  DateTime @db.Date
     content   String?
     image     String?
     tags      String?
