@@ -1,6 +1,6 @@
 'use server'
 
-import { fetchUserByEmail, userSessionEmail, userSessionIcon, userSessionId, userSessionUserName } from '@/app/_helpers/actions';
+import { fetchUserByEmail, userSessionEmail, userSessionIcon, userSessionId, userSessionUserName } from '@/app/_actions/userActions';
 import { lusitana } from '../fonts';
 import { User } from '@prisma/client';
 

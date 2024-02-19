@@ -1,23 +1,22 @@
 'use client'
 
-import { updatePost } from "@/app/_helpers/postFormActions";
+import { updatePost } from "@/app/_actions/postFormActions";
 import { useFormState } from "react-dom";
 import { lusitana } from "../fonts";
 import { BookOpenIcon, ComputerDesktopIcon, HashtagIcon, PhotoIcon, PencilIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { CreatePostForm } from "@/app/_lib/definitions";
-import { Button } from "../_forms/button";
+import { Button } from "../_nav/button";
 
-export default function PostEditForm({postDetails}:{postDetails?:CreatePostForm}) {
+export default function PostEditForm({postDetails,postId}:{postDetails?:CreatePostForm; postId:string}) {
 
     const initialState = { message: null, errors: {} };
-    const [state, dispatch] = useFormState(updatePost, initialState);
+    const updatePostWithId = updatePost.bind(null,postId);
+    const [state, dispatch] = useFormState(updatePostWithId, initialState);
+
 
     return (
         <form id="postForm" action={dispatch}>
             <div>
-                <h1 className={`${lusitana.className} text-black  mb-3 text-2xl`}>
-                    Update Post:
-                </h1>
 
                 {/*!-- Post Title Input Field -- !*/}
                 <div>
@@ -128,6 +127,7 @@ export default function PostEditForm({postDetails}:{postDetails?:CreatePostForm}
                             placeholder="User Image"
                             required
                             minLength={10}
+                            defaultValue={postDetails?.image}
                             aria-describedby='cmp-error'
                         />
                         <PhotoIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />

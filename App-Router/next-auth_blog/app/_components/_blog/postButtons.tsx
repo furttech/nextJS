@@ -1,4 +1,4 @@
-import { deletePost, editPostNav } from "@/app/_helpers/postFormActions";
+import { deletePost, editPostNav } from "@/app/_actions/postFormActions";
 import { TrashIcon, DocumentPlusIcon } from "@heroicons/react/24/solid";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,6 @@ export async function DeletePost({pid}:{pid: string}) {
         </form>
     )
 
-
 }
 
 export async function EditPost({pid}:{pid: string}) {
@@ -26,11 +25,10 @@ export async function EditPost({pid}:{pid: string}) {
     return(
         <form action={EditPostNav}>
             <button className="rounded-sm border p1 hover:border-blue-300">
-                <span className="sr-only">Trash</span>
+                <span className="sr-only">Edit</span>
                 <DocumentPlusIcon className="w-5"/>
             </button>
         </form>
     )
-
 
 }

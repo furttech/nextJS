@@ -1,4 +1,4 @@
-import UpdateForm from "@/app/_components/_forms/updateUser-form";
+import UpdateForm from "@/app/_components/_user/updateUser-form";
 
 export default function editUserPage(){
     return(

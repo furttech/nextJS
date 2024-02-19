@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '../../auth';
 import { AuthError } from 'next-auth';
-import { setLocalUserSession } from './actions';
+import { setLocalUserSession } from './userActions';
 
 const FormSubmit = z.object({
   email: z.string({

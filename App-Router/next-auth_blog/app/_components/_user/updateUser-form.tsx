@@ -1,13 +1,13 @@
 'use client'
 
-import { updateUser } from "@/app/_helpers/updateFormActions";
+import { updateUser } from "@/app/_actions/updateFormActions";
 import { UpdateUserForm } from "@/app/_lib/definitions";
 import { UserIcon } from "@heroicons/react/24/solid";
 import { useFormState } from "react-dom";
 import { lusitana } from "../fonts";
 import { KeyIcon } from "@heroicons/react/24/solid";
 import { AtSymbolIcon } from "@heroicons/react/24/solid";
-import { Button } from "./button";
+import { Button } from "../_nav/button";
 
 export default function UpdateForm(userDetails?: UpdateUserForm) {
 

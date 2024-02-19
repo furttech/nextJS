@@ -7,11 +7,11 @@ import {
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { Button } from '@/app/_components/_forms/button';
+import { Button } from '@/app/_components/_nav/button';
 import { useFormState } from 'react-dom';
 import { useFormStatus } from 'react-dom';
 import { SignInUserForm } from '@/app/_lib/definitions';
-import { State, authentication } from '@/app/_helpers/loginFormActions';
+import { State, authentication } from '@/app/_actions/loginFormActions';
 import Link from 'next/link';
 
 export default function Form(formDetails:SignInUserForm) {

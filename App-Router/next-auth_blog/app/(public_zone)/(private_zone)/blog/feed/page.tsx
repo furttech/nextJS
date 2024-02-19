@@ -1,7 +1,8 @@
 import PostTable from "@/app/_components/_blog/postTable";
 import { lusitana } from "@/app/_components/fonts";
-import { fetchPostsPageCount } from "@/app/_helpers/postFormActions";
+import { fetchPostsPageCount } from "@/app/_actions/postFormActions";
 import Search from "@/app/(public_zone)/(private_zone)/search";
+import Breadcrumbs from "@/app/_components/_nav/breadcrumbs";
 
 export default async function viewPostsPage({
     searchParams
@@ -17,17 +18,23 @@ export default async function viewPostsPage({
     const pagesCount = await fetchPostsPageCount(query);
 
     return (
-        <>
+        <main className="min-h-screen">
+            <Breadcrumbs
+                breadcrumbs={[
+                    {
+                        label: 'Public Feed',
+                        href: '/blog/wall',
+                    },
+                    { label: 'Private Posts', href: '/blog/feed', active: true, },
+                ]} 
+            />
             <div className="w-full h-full">
-                <h1 className={`${lusitana.className} text-2xl`}>
-                    All User Posts
-                </h1>
-                <div className="mt-4 flex items-center justify-between text-black gap-2 md:mt-8">
-                    <Search placeholder="Search invoices..." />
+                <div className="mt-4">
+                    <Search placeholder="Search Private Posts..." />
                 </div>
                 <PostTable query={query} currentPage={currentPage} />
             </div>
-        </>
+        </main>
     )
 
 }

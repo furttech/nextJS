@@ -1,13 +1,12 @@
 'use server'
 
 import { revalidatePath } from "next/cache";
-import { userSessionEmail, userSessionId } from "./actions";
+import { userSessionEmail, userSessionId } from "./userActions";
 import prisma from "./prisma";
 import { z } from 'zod';
 import { redirect } from "next/navigation";
 import { Post } from "@prisma/client";
 import { CreatePostForm } from "../_lib/definitions";
-import { URLPattern } from "next/server";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -26,7 +25,12 @@ const createPostObject = z.object({
         invalid_type_error: 'Tags must be Strings',
     }).max(100, { message: 'Max 100 Characters' }),
     published: z.coerce.boolean({
-        invalid_type_error: 'Please Select Publish Status'
+        invalid_type_error: 'Please Select Publish Status',
+        required_error: 'Publish Status must be selected',
+    }),
+    image: z.string({
+        invalid_type_error: "Image must be of type string",
+        required_error: "User Image String is Required",
     })
 });
 
@@ -153,6 +157,7 @@ export async function createPost(state: State, formData: FormData) {
         content: formData.get('content'),
         tags: formData.get('tags'),
         published: formData.get('published'),
+        image: formData.get('image'),
     });
 
     // validate fields against zod 
@@ -177,6 +182,7 @@ export async function createPost(state: State, formData: FormData) {
                     tags: validateFields.data.tags,
                     published: validateFields.data.published,
                     postDate: currentDate,
+                    image: validateFields.data.image,
                     author: { connect: { email: userEmail } },
                 },
             });
@@ -220,7 +226,7 @@ export async function deletePost(postData: string) {
     }
 }
 
-export async function updatePost(state: State, formData: FormData){
+export async function updatePost(postId:string, state: State, formData: FormData){
 
     // Get form data from Post creation
     const validateFields = createPostObject.safeParse({
@@ -228,6 +234,7 @@ export async function updatePost(state: State, formData: FormData){
         content: formData.get('content'),
         tags: formData.get('tags'),
         published: formData.get('published'),
+        image: formData.get('image'),
     });
 
     // validate fields against zod 
@@ -241,7 +248,6 @@ export async function updatePost(state: State, formData: FormData){
 
     // create ISO formatted string from current date
     const currentDate = new Date().toISOString();
-    const postId = "";
 
     try {
         
@@ -254,6 +260,7 @@ export async function updatePost(state: State, formData: FormData){
                 content: validateFields.data.content,
                 tags: validateFields.data.tags,
                 published: validateFields.data.published,
+                image: validateFields.data.image,
                 postDate: currentDate,
             }
         })
@@ -261,7 +268,6 @@ export async function updatePost(state: State, formData: FormData){
     } catch (error) {
         
     }
-
 
     revalidatePath('/blog/feed');
     redirect('/blog/feed');
@@ -282,6 +288,7 @@ export async function fetchPostByID(pid:string){
             content: ( postData?.content || "" ),
             tags: ( postData?.tags || ""),
             published: (postData?.published || false),
+            image: (postData?.image || "")
         }
         
         return post;
@@ -293,5 +300,6 @@ export async function fetchPostByID(pid:string){
 }
 
 export async function editPostNav(postId:string){
+   
     redirect(`/blog/edit/${postId}`);
 }
