@@ -3,6 +3,8 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 
+import { BlockedAccount, FollowedAccount, Profile } from "@prisma/client"
+
 export type RegisterUserForm = {
     username: string,
     email: string,
@@ -15,7 +17,7 @@ export type UpdateUserForm = {
     email: string,
     password: string,
     image: string,
-    
+
 }
 
 export type FormUser = {
@@ -35,8 +37,27 @@ export type CreatePostForm = {
     title: string,
     postDate?: Date,
     content?: string,
-    image?:     string,
-    tags?:  string,
+    image?: string,
+    tags?: string,
     published?: boolean,
 
+}
+
+export type UserDisplayData = {
+    userId: string,
+    userName: string,
+    bio?: string,
+    interests?: string[],
+    hashtags?: string[],
+    followerCount?: number,
+    postCount?: number,
+    following: boolean,
+    blocked: boolean,
+}
+
+export type DiscoveryFetch = {
+    profile: Profile,
+    followerList: FollowedAccount[],
+    blockedList: BlockedAccount[],
+    
 }

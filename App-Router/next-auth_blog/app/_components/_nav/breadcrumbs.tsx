@@ -22,7 +22,7 @@ export default function Breadcrumbs({
             key={breadcrumb.href}
             aria-current={breadcrumb.active}
             className={clsx(
-              breadcrumb.active ? 'text-red-500' : 'text-green-700',
+              breadcrumb.active ? 'text-green-500' : 'text-red-700',
             )}
           >
             <Link href={breadcrumb.href}>{breadcrumb.label}</Link>

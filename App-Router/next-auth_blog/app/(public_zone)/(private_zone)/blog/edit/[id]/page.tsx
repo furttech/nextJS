@@ -1,6 +1,8 @@
-import PostEditForm from "@/app/_components/_blog/postEdit-form";
+'use server'
+
+import PostEditForm from "@/app/_components/_blog/_privateFeed/postEdit-form";
 import React from "react";
-import { fetchPostByID } from "@/app/_actions/postFormActions";
+import { fetchSinglePostByID } from "@/app/_actions/postFormActions";
 import { CreatePostForm } from "@/app/_lib/definitions";
 import notFound from "./not-found";
 import Breadcrumbs from "@/app/_components/_nav/breadcrumbs";
@@ -13,13 +15,13 @@ export default async function editPostPage({ params }: { params: { id: string } 
         notFound();
     }
 
-    const postFetchDetails: CreatePostForm | null | undefined = await fetchPostByID(pid);
+    const postFetchDetails: CreatePostForm | null | undefined = await fetchSinglePostByID(pid);
 
     return (
         <main className="min-h-screen">
             <Breadcrumbs
                 breadcrumbs={[
-                    { label: 'Posts', href: '/blog/feed' },
+                    { label: 'Manage Posts', href: '/blog/manage' },
                     {
                         label: 'Edit Post',
                         href: '/blog/feed/${id}/edit',

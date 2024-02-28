@@ -1,6 +1,6 @@
 'use client'
 
-import PostCreateForm from "@/app/_components/_blog/postCreate-form";
+import PostCreateForm from "@/app/_components/_blog/_privateFeed/postCreate-form";
 import Breadcrumbs from "@/app/_components/_nav/breadcrumbs";
 import React from "react";
 
@@ -10,7 +10,7 @@ export default function createPostPage() {
         <main className="min-h-screen">
             <Breadcrumbs
                 breadcrumbs={[
-                    { label: 'Posts', href: '/blog/feed' },
+                    { label: 'Public Posts', href: '/blog/manage' },
                     {
                         label: 'Create Post',
                         href: '/blog/create',

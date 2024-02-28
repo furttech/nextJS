@@ -2,10 +2,10 @@
 
 import { createPost } from "@/app/_actions/postFormActions";
 import { useFormState } from "react-dom";
-import { lusitana } from "../fonts";
+import { lusitana } from "../../fonts";
 import { BookOpenIcon, ComputerDesktopIcon, HashtagIcon, PhotoIcon, PencilIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { CreatePostForm } from "@/app/_lib/definitions";
-import { Button } from "../_nav/button";
+import { Button } from "../../_nav/button";
 
 export default function PostCreateForm() {
 
@@ -154,11 +154,12 @@ export default function PostCreateForm() {
                                     name="published"
                                     type="radio"
                                     value="true"
+                                    defaultChecked={false}
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                                    aria-describedby='published-error'
+                                    aria-describedby='status-error'
                                 />
                                 <label
-                                    htmlFor="public_publish"
+                                    htmlFor="public"
                                     className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-gray-600"
                                 >
                                     Publish to Feed <PencilIcon className="h-4 w-4" />
@@ -170,11 +171,12 @@ export default function PostCreateForm() {
                                     name="published"
                                     type="radio"
                                     value="false"
+                                    defaultChecked={true}
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                                    aria-describedby='published-error'
+                                    aria-describedby='status-error'
                                 />
                                 <label
-                                    htmlFor="private_publish"
+                                    htmlFor="private"
                                     className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-500 px-3 py-1.5 text-xs font-medium text-white"
                                 >
                                     Private Edit <PaperClipIcon className="h-4 w-4" />

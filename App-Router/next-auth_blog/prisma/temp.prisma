@@ -1,5 +1,16 @@
 //// ### Profile Models for Blog Users ### ////
 
+model User {
+    id            String            @id @default(cuid())
+    name          String?
+    username      String?           @unique
+    password      String?
+    email         String?           @unique
+    emailVerified DateTime?
+    image         String?
+    profile       Profile[]
+}
+
 model Profile {
     id                String  @id @default(cuid()) // Primary Key : Tied to relational models with Foreign Keys
     profileVisibility String?
@@ -104,8 +115,8 @@ model MedicalStatus {
     hairColor          String?
     hairLength         String?
     skinType           String?
-    bodyWeight         Decimal? @default(0)
-    bodyHeight         Decimal? @default(0)
+    bodyWeight         Int? @default(0)
+    bodyHeight         Int? @default(0)
     handedness         String?
     bloodType          String?
     isAntiSocial       Boolean?

@@ -1,7 +1,5 @@
 import { deletePost, editPostNav } from "@/app/_actions/postFormActions";
 import { TrashIcon, DocumentPlusIcon } from "@heroicons/react/24/solid";
-import { redirect } from "next/navigation";
-
 
 export async function DeletePost({pid}:{pid: string}) {
     

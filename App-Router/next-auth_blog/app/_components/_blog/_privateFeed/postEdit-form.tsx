@@ -2,15 +2,15 @@
 
 import { updatePost } from "@/app/_actions/postFormActions";
 import { useFormState } from "react-dom";
-import { lusitana } from "../fonts";
+import { lusitana } from "../../fonts";
 import { BookOpenIcon, ComputerDesktopIcon, HashtagIcon, PhotoIcon, PencilIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { CreatePostForm } from "@/app/_lib/definitions";
-import { Button } from "../_nav/button";
+import { Button } from "../../_nav/button";
 
-export default function PostEditForm({postDetails,postId}:{postDetails?:CreatePostForm; postId:string}) {
+export default function PostEditForm({ postDetails, postId }: { postDetails?: CreatePostForm; postId: string }) {
 
     const initialState = { message: null, errors: {} };
-    const updatePostWithId = updatePost.bind(null,postId);
+    const updatePostWithId = updatePost.bind(null, postId);
     const [state, dispatch] = useFormState(updatePostWithId, initialState);
 
 
@@ -157,9 +157,9 @@ export default function PostEditForm({postDetails,postId}:{postDetails?:CreatePo
                                     name="published"
                                     type="radio"
                                     value="true"
-                                    defaultChecked={postDetails?.published === true ? true  : false }
+                                    defaultChecked={postDetails?.published ? true : false }
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                                    aria-describedby='published-error'
+                                    aria-describedby='status-error'
                                 />
                                 <label
                                     htmlFor="public_publish"
@@ -174,9 +174,9 @@ export default function PostEditForm({postDetails,postId}:{postDetails?:CreatePo
                                     name="published"
                                     type="radio"
                                     value="false"
-                                    defaultChecked={postDetails?.published === false ? false : true }
+                                    defaultChecked={postDetails?.published ? false : true }
                                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                                    aria-describedby='published-error'
+                                    aria-describedby='status-error'
                                 />
                                 <label
                                     htmlFor="private_publish"

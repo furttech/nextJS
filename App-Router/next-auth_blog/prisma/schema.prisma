@@ -14,6 +14,24 @@ datasource db {
 
 /// ### Post Models Used for Blog Posts Content Storage
 
+
+model Profile {
+    id                String   @id @default(cuid()) // Primary Key : Tied to relational models with Foreign Keys
+    profileVisibility String?
+    image           String?
+    about             String?
+    interest          String?
+    topics            String[]
+
+    posts         Post[]
+    following     FollowedAccount[]
+    blocked       BlockedAccount[]
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in User Model
+    userAcct User   @relation(fields: [userId], references: [id])
+    userId   String @unique
+}
+
 model Post {
     id        String   @id @default(cuid())
     title     String
@@ -24,24 +42,49 @@ model Post {
     published Boolean  @default(false)
 
     // Annotated Relation Feilds connecting Foreign Key with Primary Key in User Model
-    author   User?   @relation(fields: [authorId], references: [id])
-    authorId String?
+    author   Profile   @relation(fields: [authorId], references: [id])
+    authorId String
 }
 
-//// ### Account Models and Oauth Models ### ////
+model FollowedAccount {
+    id                String   @id @default(cuid())
+    f_AccountName     String?  @unique
+    f_Date            DateTime @db.Date
+    f_accountId       String
+    f_accountEmail    String?
+    f_accountUserName String?
 
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in User Model
+    profileAcct Profile  @relation(fields: [profileId], references: [id])
+    profileId   String
+}
+
+model BlockedAccount {
+    id                String   @id @default(cuid())
+    b_AccountName     String?  @unique
+    b_Date            DateTime @db.Date
+    b_accountId       String
+    b_accountEmail    String?
+    b_accountUserName String?
+
+    // Annotated Relation Feilds connecting Foreign Key with Primary Key in User Model
+    profileAcct Profile  @relation(fields: [profileId], references: [id])
+    profileId   String
+}
+
+
+//// ### Account Models and Oauth Models ### ////
 model User {
-    id            String    @id @default(cuid())
+    id            String            @id @default(cuid())
     name          String?
-    username      String?   @unique
+    username      String?           @unique
     password      String?
-    email         String?   @unique
+    email         String?           @unique
     emailVerified DateTime?
     image         String?
-    posts         Post[]
+    profile       Profile?
     accounts      Account[]
     sessions      Session[]
-    // profile       Profile[] // TODO: Integrate User Profile and Models
 }
 
 model Account {

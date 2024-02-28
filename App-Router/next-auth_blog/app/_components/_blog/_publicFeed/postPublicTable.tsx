@@ -1,13 +1,14 @@
 'use server'
 
-import { fetchFilteredPosts } from "@/app/_actions/postFormActions";
+import { fetchPublishedFilteredPosts } from "@/app/_actions/postFormActions";
 import { Post } from "@prisma/client";
-import { DeletePost, EditPost } from "./postButtons";
+import { DeletePost, EditPost } from "../_privateFeed/postButtons";
 
-export default async function PostTable({ query, currentPage }: { query: string; currentPage: number; }) {
+
+export default async function PublicPostTable({ currentPage, userId }: { userId:string;  currentPage: number; }) {
 
     // TODO: Fetch Posts List from database
-    const postList: Post[] | undefined = await fetchFilteredPosts(query, currentPage);
+    const postList: Post[] | undefined = await fetchPublishedFilteredPosts(userId,currentPage);
 
     return (
         <div className="mt-6 flow-root">
@@ -35,9 +36,6 @@ export default async function PostTable({ query, currentPage }: { query: string;
                                         <div className="m-1 flex text-gray-500">
                                             <p className="flex-auto w-1/6">Date: {post.postDate.toDateString()}</p>
                                         </div>
-                                        <div className="m-1 flex text-gray-500">
-                                            <DeletePost pid={post.id} />
-                                        </div>
                                     </div>
                                 </div>
                             ))
@@ -60,9 +58,6 @@ export default async function PostTable({ query, currentPage }: { query: string;
                                 </th>
                                 <th scope="col" className="px-4 py-5 font-medium">
                                     Date Created
-                                </th>
-                                <th scope="col" className="relative py-3 pl-6 pr-3">
-                                    <span className="sr-only">Edit Unpublished</span>
                                 </th>
                             </tr>
                         </thead>
@@ -87,12 +82,6 @@ export default async function PostTable({ query, currentPage }: { query: string;
                                         </td>
                                         <td className="whitespace-nowrap p-3">
                                             <p>{post.postDate.toDateString()}</p>
-                                        </td>
-                                        <td className="whitespace-nowrap p-3">
-                                            <EditPost pid={post.id} />
-                                        </td>
-                                        <td className="whitespace-nowrap p-3">
-                                            <DeletePost pid={post.id} />
                                         </td>
                                     </tr>
                                 ))

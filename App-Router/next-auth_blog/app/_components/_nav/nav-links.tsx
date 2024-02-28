@@ -1,11 +1,12 @@
 'use client';
 
 import {
-  HomeIcon,
+  MagnifyingGlassPlusIcon,
   DocumentDuplicateIcon,
   DocumentPlusIcon,
   UserIcon,
-  WindowIcon
+  WindowIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 
 // Link module for client side page navigation
@@ -21,13 +22,23 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   {
-    name: 'The Wall',
-    href: '/blog/wall',
+    name: 'Discover',
+    href: '/blog/discover',
+    icon: MagnifyingGlassPlusIcon,
+  },
+  {
+    name: 'Following',
+    href: '/blog/following',
+    icon: UserGroupIcon,
+  },
+  {
+    name: 'Published Feed',
+    href: '/blog/Published',
     icon: WindowIcon,
   },
   {
-    name: 'Private Feed',
-    href: '/blog/feed',
+    name: 'Manage Posts',
+    href: '/blog/manage',
     icon: DocumentDuplicateIcon,
   },
   {
